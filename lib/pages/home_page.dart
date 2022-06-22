@@ -54,15 +54,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  filterMovie() {
-    movieList = moviesListAux;
-    if (indexFilter != 0) {
-      movieList = movieList
-          .where((element) => element.genreIds.contains(indexFilter))
-          .toList();
-    }
-    setState(() {});
-  }
+  // filterMovie() {
+  //   movieList = moviesListAux;
+  //   if (indexFilter != 0) {
+  //     movieList = movieList
+  //         .where((element) => element.genreIds.contains(indexFilter))
+  //         .toList();
+  //   }
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               indexFilter = e.id;
                               print(indexFilter);
-                              filterMovie();
+                              // filterMovie();
                             },
                           ),
                         )

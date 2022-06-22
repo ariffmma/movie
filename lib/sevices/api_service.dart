@@ -13,18 +13,18 @@ import '../models/movie_model.dart';
 
 class APIService {
   Future<List<MovieModel>> getMovies() async {
-    String path = "$pathProduction/discover/movie?api_key=$apiKey";
+    String path = "https://cdn.jwplayer.com/v2/playlists/n3ITl8B9";
     print(path.toString());
     Uri _uri = Uri.parse(path);
     http.Response response = await http.get(_uri);
     print(response.statusCode);
     if (response.statusCode == 200) {
       Map<String, dynamic> myMap = json.decode(response.body);
-      List movies = myMap["results"];
+      List movies = myMap["playlist"];
       List<MovieModel> movieList =
           movies.map<MovieModel>((e) => MovieModel.fromJson(e)).toList();
 
-      print(movies[0]['original_title']);
+      print(movies[0]['title']);
       print(movieList[1].title);
       return movieList;
     }

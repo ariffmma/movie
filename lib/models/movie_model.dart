@@ -1,68 +1,61 @@
 class MovieModel {
-  bool adult;
-  String backdropPath;
-  List<int> genreIds;
-  int id;
-  String originalLanguage;
-  String originalTitle;
-  String overview;
-  double popularity;
-  String posterPath;
-  DateTime releaseDate;
   String title;
-  bool video;
-  double voteAverage;
-  int voteCount;
+  String mediaid;
+  String image;
+  int duration;
+  DateTime pubdate;
+  String description;
+  String tags;
+  List<Genre> sources;
 
   MovieModel({
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
-    required this.id,
-    required this.originalLanguage,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
     required this.title,
-    required this.video,
-    required this.voteAverage,
-    required this.voteCount,
+    required this.mediaid,
+    required this.image,
+    required this.duration,
+    required this.pubdate,
+    required this.description,
+    required this.tags,
+    required this.sources,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
-        adult: json["adult"],
-        backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        originalLanguage: json["original_language"],
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        popularity: json["popularity"].toDouble(),
-        posterPath: json["poster_path"],
-        releaseDate: DateTime.parse(json["release_date"]),
         title: json["title"],
-        video: json["video"],
-        voteAverage: json["vote_average"].toDouble(),
-        voteCount: json["vote_count"],
+        mediaid: json["mediaid"],
+        image: json["image"],
+        duration: json["duration"],
+        pubdate: DateTime.fromMillisecondsSinceEpoch(json['pubdate'] * 1000),
+        // pubdate: json["pubdate"],
+        description: json["description"],
+        tags: json["tags"],
+        sources:
+            List<Genre>.from(json["sources"].map((x) => Genre.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "adult": adult,
-        "backdrop_path": backdropPath,
-        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-        "id": id,
-        "original_language": originalLanguage,
-        "original_title": originalTitle,
-        "overview": overview,
-        "popularity": popularity,
-        "poster_path": posterPath,
-        "release_date":
-            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
         "title": title,
-        "video": video,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
+        "mediaid": mediaid,
+        "image": image,
+        "duration": duration,
+        "pubdate": pubdate,
+        "description": description,
+        "tags": tags,
+        "sources": List<dynamic>.from(sources.map((x) => x.toJson())),
+      };
+}
+
+class Genre {
+  Genre({
+    required this.file,
+  });
+
+  String file;
+
+  factory Genre.fromJson(Map<String, dynamic> json) => Genre(
+        file: json["file"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "file": file,
       };
 }

@@ -21,7 +21,7 @@ class ItemMovieListWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => MovieDetailPage(
-                      movieId: movieModel.id,
+                      movieId: movieModel.mediaid,
                     )));
       },
       child: Container(
@@ -40,7 +40,7 @@ class ItemMovieListWidget extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(
-              "http://image.tmdb.org/t/p/w500${movieModel.posterPath}",
+              movieModel.image,
             ),
           ),
         ),
@@ -64,7 +64,7 @@ class ItemMovieListWidget extends StatelessWidget {
                   children: [
                     Text(
                       // movies[index]["original_title"],
-                      movieModel.originalTitle,
+                      movieModel.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -89,7 +89,7 @@ class ItemMovieListWidget extends StatelessWidget {
                     ),
                     Text(
                       // movies[index]["overview"],
-                      movieModel.overview,
+                      movieModel.description,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -115,9 +115,8 @@ class ItemMovieListWidget extends StatelessWidget {
                             ),
                             Text(
                               // movies[index]["release_date"],
-                              movieModel.releaseDate
-                                  .toString()
-                                  .substring(0, 10),
+                              convertDateTime(movieModel.pubdate),
+                              // movieModel.pubdate.toString().substring(0, 10),
                               style: TextStyle(
                                   color: Colors.white, fontSize: 12.0),
                             ),
@@ -135,7 +134,7 @@ class ItemMovieListWidget extends StatelessWidget {
                             ),
                             Text(
                               // movies[index]["vote_count"].toString(),
-                              movieModel.voteCount.toString(),
+                              movieModel.duration.toString(),
                               style: TextStyle(
                                   color: Colors.white, fontSize: 12.0),
                             ),
@@ -160,7 +159,7 @@ class ItemMovieListWidget extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Text(
-                  movieModel.voteAverage.toString(),
+                  movieModel.duration.toString(),
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,
@@ -173,5 +172,50 @@ class ItemMovieListWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String convertDateTime(DateTime dateTime) {
+    String month;
+
+    switch (dateTime.month) {
+      case 1:
+        month = 'Jan';
+        break;
+      case 2:
+        month = 'Feb';
+        break;
+      case 3:
+        month = 'Mar';
+        break;
+      case 4:
+        month = 'Apr';
+        break;
+      case 5:
+        month = 'May';
+        break;
+      case 6:
+        month = 'Jun';
+        break;
+      case 7:
+        month = 'Jul';
+        break;
+      case 8:
+        month = 'Aug';
+        break;
+      case 9:
+        month = 'Sep';
+        break;
+      case 10:
+        month = 'Oct';
+        break;
+      case 11:
+        month = 'Nov';
+        break;
+      default:
+        month = 'Des';
+    }
+
+    return month + ' ${dateTime.day}, ${dateTime.year}';
+    // ' ${dateTime.day}, ${dateTime.year}, ${dateTime.hour}:${dateTime.minute}';
   }
 }

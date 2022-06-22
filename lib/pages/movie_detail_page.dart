@@ -16,7 +16,7 @@ import '../ui/widgets/item_cast_widget.dart';
 import '../ui/widgets/loading_indicator_widget.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  int movieId;
+  var movieId;
 
   MovieDetailPage({Key? key, required this.movieId}) : super(key: key);
 
