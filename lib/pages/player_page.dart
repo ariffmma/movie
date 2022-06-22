@@ -1,11 +1,16 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_codigo5_movieapp/models/movie_model.dart';
 
 import '../utils/constans.dart';
 
 class PlayerPage extends StatefulWidget {
-  PlayerPage({Key? key}) : super(key: key);
+  final List<MovieModel> item;
+
+  int index;
+  PlayerPage({Key? key, required this.index, required this.item})
+      : super(key: key);
 
   @override
   State<PlayerPage> createState() => _PlayerPageState();
@@ -30,6 +35,20 @@ class _PlayerPageState extends State<PlayerPage> {
     _betterPlayerController.setupDataSource(dataSource);
     //=========== en Better Player =================
     // TODO: implement initState
+
+    final fruitList = widget.item[widget.index].sources
+        .map(
+          (e) => Chip(
+            label: Text(
+              e.file,
+            ),
+          ),
+        )
+        .toList();
+    final fruitMap = fruitList.asMap();
+    final myFruit = fruitMap[1];
+    print(myFruit);
+    final fruitListAgain = fruitMap.values.toList();
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -54,6 +73,18 @@ class _PlayerPageState extends State<PlayerPage> {
         children: [
           Expanded(
             child: BetterPlayer(controller: _betterPlayerController),
+          ),
+          Wrap(
+            spacing: 8,
+            children: widget.item[widget.index].sources
+                .map(
+                  (e) => Chip(
+                    label: Text(
+                      e.file,
+                    ),
+                  ),
+                )
+                .toList(),
           ),
           Expanded(
             child: Container(
